@@ -1,7 +1,13 @@
 # keep only the elements that start with an a
-def select_elements_starting_with_a(array)
-  array.select {|w| w.start_with? 'a' }
-end
+
+# def select_elements_starting_with_a(array)
+#   array.select {|w| w.start_with? 'a' }
+# end
+
+def select_elements_starting_with_a(array) 
+  
+  end
+
 
 # keep only the elements that start with a vowel
 def select_elements_starting_with_vowel(array)
