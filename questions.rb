@@ -1,202 +1,258 @@
-# keep only the elements that start with an a
+# 1. keep only the elements that start with an a
 
-# def select_elements_starting_with_a(array)
-#   array.select {|w| w.start_with? 'a' }
-# end
-
-def select_elements_starting_with_a(array) 
-  
-  end
+def select_elements_starting_with_a(array)
+  array.select{|element|element.start_with?('a')}
+end
 
 
-# keep only the elements that start with a vowel
+# 2. keep only the elements that start with a vowel
+
 def select_elements_starting_with_vowel(array)
-  array.select { |w| w =~ /\A[aeiou]/i }
+    array.select{|element|element.start_with?('a','e','i','o','u')}
 end
 
-# remove instances of nil (but NOT false) from an array
+# 3. remove instances of nil (but NOT false) from an array
+
 def remove_nils_from_array(array)
-  array.compact
+  array.reject{|element|element.nil?}
 end
+  
+# 4.remove instances of nil AND false from an array
 
-# remove instances of nil AND false from an array
 def remove_nils_and_false_from_array(array)
-  array.reject(&:!)
+    array.reject{|element|!element}
 end
 
-# don't reverse the array, but reverse every word inside it. e.g.
+
+# 5. don't reverse the array, but reverse every word inside it. e.g.
 # ['dog', 'monkey'] becomes ['god', 'yeknom']
+
 def reverse_every_element_in_array(array)
-  array.map(&:reverse)
+  array.map!{|element|element.reverse}
 end
 
-# given an array of student names, like ['Bob', 'Dave', 'Clive']
+
+# 6. given an array of student names, like ['Bob', 'Dave', 'Clive']
 # give every possible pairing - in this case:
 # [['Bob', 'Clive'], ['Bob', 'Dave'], ['Clive', 'Dave']]
 # make sure you don't have the same pairing twice, 
+
 def every_possible_pairing_of_students(array)
   array.combination(2)
 end
 
-# discard the first 3 elements of an array, 
+
+# 7. discard the first 3 elements of an array, 
 # e.g. [1, 2, 3, 4, 5, 6] becomes [4, 5, 6]
+
 def all_elements_except_first_3(array)
   array.drop(3)
 end
 
-# add an element to the beginning of an array
-def add_element_to_beginning_of_array(array, element)
+
+# 8. add an element to the beginning of an array
+
+def add_element_to_beginning_of_array(array,element)
   array.unshift(element)
 end
 
-# sort an array of words by their last letter, e.g.
+
+# 9. sort an array of words by their last letter, e.g.
 # ['sky', 'puma', 'maker'] becomes ['puma', 'maker', 'sky']
+
 def array_sort_by_last_letter_of_word(array)
-  array.sort_by { |w| w[-1] }
+  array.sort_by{|word|word[-1]}
 end
 
-# cut strings in half, and return the first half, e.g.
+
+# 10. cut strings in half, and return the first half, e.g.
 # 'banana' becomes 'ban'. If the string is an odd number of letters
 # round up - so 'apple' becomes 'app'
+
 def get_first_half_of_string(string)
-  letter_count = (string.length / 2.0).ceil
-  string[0, letter_count]
+  half_string = (string.length.to_f/2).ceil
+  string[0,half_string]  
 end
 
-# turn a positive integer into a negative integer. A negative integer
+# 11. turn a positive integer into a negative integer. A negative integer
 # stays negative
+
 def make_numbers_negative(number)
   -number.abs
 end
 
-# turn an array of numbers into two arrays of numbers, one an array of 
+
+# 12. turn an array of numbers into two arrays of numbers, one an array of 
 # even numbers, the other an array of odd numbers
 # even numbers come first
 # so [1, 2, 3, 4, 5, 6] becomes [[2, 4, 6], [1, 3, 5]]
+
 def separate_array_into_even_and_odd_numbers(array)
-  array.partition(&:even?)
+  even_numbers = array.select {|number|number.even?} 
+  odd_numbers = array.select {|number|number.odd?} 
+  [even_numbers, odd_numbers]
 end
 
-# count the numbers of elements in an element which are palindromes
+
+# 13. count the numbers of elements in an element which are palindromes
 # a palindrome is a word that's the same backwards as forward
 # e.g. 'bob'. So in the array ['bob', 'radar', 'eat'], there
 # are 2 palindromes (bob and radar), so the method should return 2
+
 def number_of_elements_that_are_palindromes(array)
-  array.select {|w| w == w.reverse }.size
+  array.select{|element|element == element.reverse}.count
 end
 
-# return the shortest word in an array
+# 14. return the shortest word in an array
+
 def shortest_word_in_array(array)
-  array.min_by(&:length)
+   array.min_by{|word|word.length}
 end
 
-# return the shortest word in an array
+#15. return the longest word in an array
+
 def longest_word_in_array(array)
-  array.max_by(&:length)
+    array.max_by{|word|word.length}
 end
 
-# add up all the numbers in an array, so [1, 3, 5, 6]
+# 16. add up all the numbers in an array, so [1, 3, 5, 6]
 # returns 15
+# def total_of_array(array)
+#   array.inject(:+)
+# end
+
 def total_of_array(array)
-  array.inject(:+)
+  array.inject(0) {|sum, i|  sum + i }
 end
 
-# turn an array into itself repeated twice. So [1, 2, 3]
+# 17. turn an array into itself repeated twice. So [1, 2, 3]
 # becomes [1, 2, 3, 1, 2, 3]
+
 def double_array(array)
-  array * 2
+  array + array
 end
 
-# convert a symbol into a string
+
+# 18.  convert a symbol into a string
+
 def turn_symbol_into_string(symbol)
   symbol.to_s
 end
 
-# get the average from an array, rounded to the nearest integer
+
+# 19. get the average from an array, rounded to the nearest integer
 # so [10, 15, 25] should return 33
+# def average_of_array(array)
+#   (array.inject(:+).to_f / array.size).round
+# end
+
 def average_of_array(array)
-  (array.inject(:+).to_f / array.size).round
+  sum_of_array =  array.inject{ |x, y| x + y }.to_f
+  (sum_of_array.to_f/array.length).round
 end
 
-# get all the elements in an array, up until the first element
+
+# 20. get all the elements in an array, up until the first element
 # which is greater than five. e.g.
 # [1, 3, 5, 4, 1, 2, 6, 2, 1, 3, 7]
 # becomes [1, 3, 5, 4, 1, 2]
+
 def get_elements_until_greater_than_five(array)
-  array.take_while { |n| n <= 5 }
+  array.take_while{|number|number <=5}
 end
 
-# turn an array (with an even number of elements) into a hash, by
+# 21.  turn an array (with an even number of elements) into a hash, by
 # pairing up elements. e.g. ['a', 'b', 'c', 'd'] becomes
 # {'a' => 'b', 'c' => 'd'}
+
 def convert_array_to_a_hash(array)
-  Hash[*array]
+  Hash[*array.flatten]
 end
 
-# get all the letters used in an array of words and return
+
+# 22. get all the letters used in an array of words and return
 # it as a array of letters, in alphabetical order
 # . e.g. the array ['cat', 'dog', 'fish'] becomes
 # ['a', 'c', 'd', 'f', 'g', 'h', 'i', 'o', 's', 't']
+
 def get_all_letters_in_array_of_words(array)
-  array.join.chars.uniq.sort
+  array.join.split("").sort  
 end
 
-# swap the keys and values in a hash. e.g.
+
+# 23. swap the keys and values in a hash. e.g.
 # {'a' => 'b', 'c' => 'd'} becomes
 # {'b' => 'a', 'd' => 'c'}
 def swap_keys_and_values_in_a_hash(hash)
   hash.invert
 end
 
-# in a hash where the keys and values are all numbers
+# 24. in a hash where the keys and values are all numbers
 # add all the keys and all the values together, e.g.
 # {1 => 1, 2 => 2} becomes 6
+
 def add_together_keys_and_values(hash)
-  hash.flatten.inject(:+)
+ hash.flatten.inject(0){|sum, i|  sum + i }
 end
 
-# take out all the capital letters from a string
+# 25. take out all the capital letters from a string
 # so 'Hello JohnDoe' becomes 'ello ohnoe'
+
 def remove_capital_letters_from_string(string)
-  string.gsub(/[A-Z]/, '')
+  string.gsub(/[A-Z]/,"")  
 end
 
-# round up a float up and convert it to an Integer,
+
+# 26. round up a float up and convert it to an Integer,
 # so 3.214 becomes 4
 def round_up_number(float)
   float.ceil
 end
 
-# round down a float up and convert it to an Integer,
+# 27. round down a float up and convert it to an Integer,
 # so 9.52 becomes 9
+
+
 def round_down_number(float)
   float.floor
 end
 
-# take a date and format it like dd/mm/yyyy, so Halloween 2013
+
+# 28. take a date and format it like dd/mm/yyyy, so Halloween 2013
 # becomes 31/10/2013
+
+# def format_date_nicely(date)
+#   date.strftime '%d/%m/%Y'
+# end
+
 def format_date_nicely(date)
   date.strftime '%d/%m/%Y'
 end
 
-# get the domain name *without* the .com part, from an email address
+# 29. get the domain name *without* the .com part, from an email address
 # so alex@makersacademy.com becomes makersacademy
+
 def get_domain_name_from_email_address(email)
-  email[/@(\w+)/, 1]
+email.scan(/@(\w+)/)[0].pop
 end
 
-# capitalize the first letter in each word of a string, 
+# 30. capitalize the first letter in each word of a string, 
 #  except 'a', 'and' and 'the'
 # *unless* they come at the start of the start of the string, e.g.
 # 'the lion the witch and the wardrobe' becomes
 # 'The Lion the Witch and the Wardrobe'
+
 def titleize_a_string(string)
-  string.split.inject([]) { |words, w|
-    words << (%w(a and the).include?(w) && words.any? ? w : w.capitalize)
-  }.join(' ')
+sentence = string.capitalize!.split(' ')
+  words_not_to_capitalize = ['a', 'and', 'the']
+
+  sentence.each do |word|
+    word.capitalize! unless words_not_to_capitalize.include?(word)
+  end.join(' ')
+
 end
 
-# return true if a string contains any special characters
+# 31. return true if a string contains any special characters
 # where 'special character' means anything apart from the letters
 # a-z (uppercase and lower) or numbers
 def check_a_string_for_special_characters(string)
